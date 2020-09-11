@@ -25,11 +25,9 @@ abstract class CurrencyConverterDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): CurrencyConverterDatabase {
             return Room.databaseBuilder(
-                context,
+                context.applicationContext,
                 CurrencyConverterDatabase::class.java,
-                DATABASE_NAME
-            )
-                .build()
+                DATABASE_NAME).build()
         }
     }
 }

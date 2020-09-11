@@ -12,6 +12,8 @@ interface CurrenciesDataSource {
 
     suspend fun refreshCurrencies()
 
+    suspend fun saveCurrency(currency: Currency)
+
     suspend fun saveCurrencies(currencies: List<Currency>)
 
     suspend fun updateCurrencies(currencies: List<Currency>)

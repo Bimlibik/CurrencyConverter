@@ -1,5 +1,6 @@
 package com.foxy.currencyconverter.data.repository
 
+
 import androidx.lifecycle.LiveData
 import com.foxy.currencyconverter.data.Result
 import com.foxy.currencyconverter.data.Result.*
@@ -14,7 +15,7 @@ class CurrenciesRepository(
 ) : ICurrenciesRepository {
 
     override fun observeCurrencies(): LiveData<Result<List<Currency>>> {
-        TODO("TODO")
+        return currenciesLocalDataSource.observeCurrencies()
     }
 
     override suspend fun getCurrencies(forceUpdate: Boolean): Result<List<Currency>> {
@@ -29,7 +30,7 @@ class CurrenciesRepository(
     }
 
     override suspend fun refreshCurrencies() {
-        TODO("TODO")
+        updateCurrenciesFromNetwork()
     }
 
     override suspend fun saveCurrencies(currencies: List<Currency>) {
