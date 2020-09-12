@@ -1,16 +1,16 @@
 package com.foxy.currencyconverter.view_models
 
-import android.util.Log
 import androidx.lifecycle.*
+import com.foxy.currencyconverter.R
 import com.foxy.currencyconverter.data.Result
-import com.foxy.currencyconverter.data.Result.*
+import com.foxy.currencyconverter.data.Result.Success
 import com.foxy.currencyconverter.data.model.Currency
 import com.foxy.currencyconverter.data.repository.ICurrenciesRepository
 import kotlinx.coroutines.launch
 
 class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewModel() {
 
-    private val _forceUpdate = MutableLiveData<Boolean>(false)
+    private val _forceUpdate = MutableLiveData(false)
 
     private val _currencies: LiveData<List<Currency>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
@@ -27,6 +27,12 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
         it.isEmpty()
     }
 
+    private val _isCollapse = MutableLiveData(false)
+    val isCollapse: LiveData<Boolean> = _isCollapse
+
+    private val _collapseIconRes = MutableLiveData(R.drawable.ic_collapse)
+    val collapseIconRes: LiveData<Int> = _collapseIconRes
+
 
     init {
         loadCurrencies(true)
@@ -34,6 +40,19 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
     fun refresh() {
         loadCurrencies(true)
+    }
+
+    fun showHideConverterPanel(isShown: Boolean) {
+        _isCollapse.value = isShown
+        changeIcon(isShown)
+    }
+
+    private fun changeIcon(isCollapse: Boolean) {
+        if (isCollapse) {
+            _collapseIconRes.value = R.drawable.ic_expand
+        } else {
+            _collapseIconRes.value = R.drawable.ic_collapse
+        }
     }
 
     private fun loadCurrencies(forceUpdate: Boolean) {
@@ -48,7 +67,6 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
         } else {
             result.value = emptyList()
         }
-        Log.i("TAG2", "computeResult: ${result.value}")
         return result
     }
 }

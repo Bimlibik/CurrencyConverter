@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="androidx.core.content.ContextCompat" />
+
         <variable
-            name="view_model"
+            name="viewModel"
             type="com.foxy.currencyconverter.view_models.CurrenciesViewModel" />
     </data>
 
@@ -14,138 +17,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--Amount-->
+        <include
+            android:id="@+id/layout_converter"
+            layout="@layout/layout_converter"
+            bind:viewModel="@{viewModel}"/>
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Amount" />
-
-            <EditText
-                android:id="@+id/field_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!--From - To-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="From" />
-
-                <EditText
-                    android:id="@+id/field_from"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrows"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To" />
-
-                <EditText
-                    android:id="@+id/field_to"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!--Result-->
-        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_toStartOf="@id/img_equality">
-
-                <TextView
-                    android:id="@+id/tv_from_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="70" />
-
-                <TextView
-                    android:id="@+id/tv_from_currency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="RUB" />
-            </LinearLayout>
+            android:background="@color/colorPrimaryLight"
+            android:onClick="@{() -> viewModel.showHideConverterPanel(!viewModel.isCollapse)}">
 
             <ImageView
-                android:id="@+id/img_equality"
+                android:id="@+id/img_expand_collapse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_equality"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp" />
+                android:layout_margin="8dp"
+                android:layout_gravity="center_vertical"
+                android:src="@{ContextCompat.getDrawable(context, viewModel.collapseIconRes)}" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_expand_collapse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_toEndOf="@id/img_equality">
-
-                <TextView
-                    android:id="@+id/tv_to_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="100" />
-
-                <TextView
-                    android:id="@+id/tv_to_currency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="USD" />
-            </LinearLayout>
-        </RelativeLayout>
+                android:layout_gravity="center_vertical"
+                android:text="Collapse converter"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_currency"
-            app:items="@{view_model.currencies}"/>
+            app:items="@{viewModel.currencies}" />
 
     </LinearLayout>
 
