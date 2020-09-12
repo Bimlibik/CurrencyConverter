@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="16dp"
+        android:background="@color/colorConverterBg"
         app:animatedVisibility="@{viewModel.isCollapse}">
 
         <!--Amount-->
@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:textSize="20sp"
                 android:background="@drawable/field_bg" />
         </LinearLayout>
 
@@ -76,7 +77,6 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:src="@drawable/ic_arrows" />
 
             <LinearLayout
@@ -95,6 +95,7 @@
                     android:id="@+id/field_to"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:background="@drawable/field_bg" />
             </LinearLayout>
         </LinearLayout>
@@ -104,7 +105,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"

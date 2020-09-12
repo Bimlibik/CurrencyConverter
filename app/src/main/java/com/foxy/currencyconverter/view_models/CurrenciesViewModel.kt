@@ -33,6 +33,9 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     private val _collapseIconRes = MutableLiveData(R.drawable.ic_collapse)
     val collapseIconRes: LiveData<Int> = _collapseIconRes
 
+    private val _collapseLabel = MutableLiveData(R.string.collapse)
+    val collapseLabel: LiveData<Int> = _collapseLabel
+
 
     init {
         loadCurrencies(true)
@@ -44,14 +47,16 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
     fun showHideConverterPanel(isShown: Boolean) {
         _isCollapse.value = isShown
-        changeIcon(isShown)
+        changeCollapseInfo(isShown)
     }
 
-    private fun changeIcon(isCollapse: Boolean) {
+    private fun changeCollapseInfo(isCollapse: Boolean) {
         if (isCollapse) {
             _collapseIconRes.value = R.drawable.ic_expand
+            _collapseLabel.value = R.string.expand
         } else {
             _collapseIconRes.value = R.drawable.ic_collapse
+            _collapseLabel.value = R.string.collapse
         }
     }
 

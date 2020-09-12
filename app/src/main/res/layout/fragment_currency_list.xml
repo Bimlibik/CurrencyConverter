@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorPrimaryLight"
+            android:background="@color/colorConverterBg"
             android:onClick="@{() -> viewModel.showHideConverterPanel(!viewModel.isCollapse)}">
 
             <ImageView
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Collapse converter"
+                android:text="@{context.getString(viewModel.collapseLabel)}"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
 
