@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/colorWhite"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <fragment
