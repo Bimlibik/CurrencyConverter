@@ -48,7 +48,7 @@ class CurrenciesRemoteDataSource(
 
     private suspend fun loadCurrenciesFromNetwork(): List<Currency> {
         val apiClient = ApiClient.client.create(CurrencyApiInterface::class.java)
-        return apiClient.getCurrencies().valute.getCurrencies()
+        return apiClient.getCurrencies().currencies.values.toList()
     }
 
 }

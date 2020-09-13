@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class CurrencyResponse(
 
     @SerializedName("Valute")
-    val valute: Valute
+    val currencies: Map<String, Currency>
 )
