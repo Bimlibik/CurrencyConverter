@@ -8,6 +8,7 @@ import com.foxy.currencyconverter.R
 import com.foxy.currencyconverter.databinding.FragmentCurrencyListBinding
 import com.foxy.currencyconverter.ui.adapters.CurrenciesAdapter
 import com.foxy.currencyconverter.util.getViewModelFactory
+import com.foxy.currencyconverter.util.setupSnackbar
 import com.foxy.currencyconverter.view_models.CurrenciesViewModel
 
 class CurrencyListFragment : Fragment() {
@@ -48,6 +49,11 @@ class CurrencyListFragment : Fragment() {
 
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
         setupAdapter()
+        setupSnackbar()
+    }
+
+    private fun setupSnackbar() {
+        view?.setupSnackbar(this, viewModel.snackbarText)
     }
 
     private fun setupAdapter() {

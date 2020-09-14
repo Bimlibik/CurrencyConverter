@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="com.foxy.currencyconverter.view_models.CurrenciesViewModel" />
+
     </data>
 
     <LinearLayout
@@ -38,6 +39,9 @@
                 android:layout_marginTop="4dp"
                 android:padding="8dp"
                 android:textSize="20sp"
+                android:text="@={viewModel.amount}"
+                android:inputType="number"
+                android:imeOptions="actionDone"
                 android:background="@drawable/field_bg" />
         </LinearLayout>
 
@@ -97,7 +101,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:background="@drawable/field_bg" />
+                    android:background="@drawable/field_bg"
+                    android:text="@={viewModel.currencyCode}"
+                    android:gravity="center_vertical|center_horizontal"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -120,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="70" />
+                    android:text="@={viewModel.amountFrom}" />
 
                 <TextView
                     android:id="@+id/tv_from_currency"
@@ -151,7 +157,7 @@
                     android:id="@+id/tv_to_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
+                    android:text="@={viewModel.amountTo}"
                     android:textSize="20sp" />
 
                 <TextView
@@ -159,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="USD"
+                    android:text="@={viewModel.currencyCode}"
                     android:textSize="20sp" />
             </LinearLayout>
         </RelativeLayout>

@@ -7,14 +7,15 @@
             name="currency"
             type="com.foxy.currencyconverter.data.model.Currency" />
         <variable
-            name="view_model"
+            name="viewModel"
             type="com.foxy.currencyconverter.view_models.CurrenciesViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:onClick="@{() -> viewModel.saveSelectedCurrency(currency)}">
 
         <ImageView
             android:id="@+id/img_flag"
