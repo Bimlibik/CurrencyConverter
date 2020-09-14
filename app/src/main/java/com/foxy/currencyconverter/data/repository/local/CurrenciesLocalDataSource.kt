@@ -49,4 +49,8 @@ class CurrenciesLocalDataSource(
     override suspend fun deleteCurrencies() = withContext(ioDispatcher) {
         currenciesDao.deleteCurrencies()
     }
+
+    override suspend fun isEmpty(): Boolean = withContext(ioDispatcher) {
+        return@withContext currenciesDao.getAnyCurrency() == null
+    }
 }

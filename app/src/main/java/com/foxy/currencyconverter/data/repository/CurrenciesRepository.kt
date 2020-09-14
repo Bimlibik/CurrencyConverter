@@ -3,10 +3,13 @@ package com.foxy.currencyconverter.data.repository
 
 import androidx.lifecycle.LiveData
 import com.foxy.currencyconverter.data.Result
-import com.foxy.currencyconverter.data.Result.*
+import com.foxy.currencyconverter.data.Result.Error
+import com.foxy.currencyconverter.data.Result.Success
 import com.foxy.currencyconverter.data.model.Currency
-import kotlinx.coroutines.*
-import java.lang.Exception
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class CurrenciesRepository(
     private val currenciesLocalDataSource: CurrenciesDataSource,
@@ -29,8 +32,14 @@ class CurrenciesRepository(
         return currenciesLocalDataSource.getCurrencies()
     }
 
-    override suspend fun refreshCurrencies() {
-        updateCurrenciesFromNetwork()
+    override suspend fun refreshCurrencies(forceUpdate: Boolean) {
+        if (forceUpdate) {
+            updateCurrenciesFromNetwork()
+        } else {
+            if (currenciesLocalDataSource.isEmpty()) {
+                updateCurrenciesFromNetwork()
+            }
+        }
     }
 
     override suspend fun saveCurrencies(currencies: List<Currency>) {
@@ -51,8 +60,6 @@ class CurrenciesRepository(
         if (remoteCurrencies is Success) {
             currenciesLocalDataSource.deleteCurrencies()
             currenciesLocalDataSource.saveCurrencies(remoteCurrencies.data)
-        } else if (remoteCurrencies is Error) {
-            throw remoteCurrencies.exception
         }
     }
 }

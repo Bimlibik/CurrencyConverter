@@ -24,4 +24,7 @@ interface CurrencyDao {
 
     @Query("SELECT * FROM currencies")
     fun getCurrencies(): List<Currency>
+
+    @Query("SELECT * FROM currencies LIMIT 1")
+    fun getAnyCurrency(): Currency?
 }

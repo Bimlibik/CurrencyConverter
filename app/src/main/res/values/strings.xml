@@ -3,8 +3,10 @@
 
     <string name="collapse">Collapse converter</string>
     <string name="expand">Expand converter</string>
+    <string name="tv_empty_info">Currencies not found. Try to refresh.</string>
 
     <string name="snackbar_action_ok">OK</string>
     <string name="snackbar_msg_currency_is_empty">The selected currency has no rate information.
         Try updating the list of currencies.</string>
+    <string name="snackbar_msg_loading_error">Error while loading currencies</string>
 </resources>

@@ -20,4 +20,6 @@ interface CurrenciesDataSource {
 
     suspend fun deleteCurrencies()
 
+    suspend fun isEmpty(): Boolean
+
 }

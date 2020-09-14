@@ -32,10 +32,8 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     private val _forceUpdate = MutableLiveData(false)
 
     private val _currencies: LiveData<List<Currency>> = _forceUpdate.switchMap { forceUpdate ->
-        if (forceUpdate) {
-            viewModelScope.launch {
-                repository.refreshCurrencies()
-            }
+        viewModelScope.launch {
+            repository.refreshCurrencies(forceUpdate)
         }
         repository.observeCurrencies().distinctUntilChanged().switchMap { computeResult(it) }
     }
@@ -60,7 +58,7 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
 
     init {
-        loadCurrencies(true)
+        loadCurrencies(false)
         amount.observeForever(amountObserver)
     }
 
@@ -115,12 +113,14 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     }
 
     private fun computeResult(currenciesResult: Result<List<Currency>>): LiveData<List<Currency>> {
+
         val result = MutableLiveData<List<Currency>>()
 
         if (currenciesResult is Success) {
             result.value = currenciesResult.data
         } else {
             result.value = emptyList()
+            _snackbarText.value = Event(R.string.snackbar_msg_loading_error)
         }
         return result
     }

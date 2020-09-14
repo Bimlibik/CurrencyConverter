@@ -15,7 +15,7 @@ class CurrenciesRemoteDataSource(
 ) : CurrenciesDataSource {
 
     override fun observeCurrencies(): LiveData<Result<List<Currency>>> {
-        TODO("TODO")
+        TODO("Observe to remote data source")
     }
 
     override suspend fun getCurrencies(): Result<List<Currency>> = withContext(ioDispatcher) {
@@ -31,7 +31,7 @@ class CurrenciesRemoteDataSource(
     }
 
     override suspend fun saveCurrency(currency: Currency) {
-        TODO("TODO")
+        TODO("Save currency to remote data source")
     }
 
     override suspend fun saveCurrencies(currencies: List<Currency>) {
@@ -44,6 +44,10 @@ class CurrenciesRemoteDataSource(
 
     override suspend fun deleteCurrencies() {
 
+    }
+
+    override suspend fun isEmpty(): Boolean {
+        TODO("Check if remote data source is empty")
     }
 
     private suspend fun loadCurrenciesFromNetwork(): List<Currency> {

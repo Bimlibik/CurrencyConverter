@@ -10,7 +10,7 @@ interface ICurrenciesRepository {
 
     suspend fun getCurrencies(forceUpdate: Boolean = false): Result<List<Currency>>
 
-    suspend fun refreshCurrencies()
+    suspend fun refreshCurrencies(forceUpdate: Boolean)
 
     suspend fun saveCurrencies(currencies: List<Currency>)
 
