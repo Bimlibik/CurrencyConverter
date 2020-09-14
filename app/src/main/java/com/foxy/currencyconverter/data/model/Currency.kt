@@ -20,4 +20,12 @@ data class Currency(
 
     @SerializedName("Value")
     val value: String
-)
+) {
+
+    val isEmpty get() =
+        value == null || nominal == null || value.isEmpty() || nominal == 0
+
+    fun getRate(): Double {
+        return value.toDouble() / nominal
+    }
+}
