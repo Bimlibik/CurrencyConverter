@@ -70,6 +70,7 @@ class CurrencyListFragment : Fragment() {
     private fun setupToolbar() {
         if (activity is AppCompatActivity) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
+            (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         }
     }
 }
