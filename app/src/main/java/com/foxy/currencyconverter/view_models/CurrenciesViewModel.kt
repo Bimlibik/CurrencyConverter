@@ -12,12 +12,16 @@ import com.foxy.currencyconverter.data.model.Currency
 import com.foxy.currencyconverter.data.repository.ICurrenciesRepository
 import com.foxy.currencyconverter.util.round
 import kotlinx.coroutines.launch
+import java.lang.NumberFormatException
+import java.text.DecimalFormat
 
 class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewModel() {
 
     private lateinit var selectedCurrency: Currency
 
     private lateinit var timer: EventCountDown
+
+    private val formatter = DecimalFormat(FORMAT_PATTERN)
 
     // Two-way databinding
     val amount = MutableLiveData<String>()
@@ -100,15 +104,27 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
             amountFrom.value = DEFAULT_AMOUNT
             amountTo.value = DEFAULT_AMOUNT
         } else {
-            amountFrom.value = newAmount
-            computeWithNewAmount(newAmount.toInt())
+            try {
+                amountFrom.value = formatter.format(newAmount.toLong())
+                computeWithNewAmount(newAmount.toLong())
+            } catch (e: NumberFormatException) {
+                _snackbarText.value = Event(R.string.snackbar_msg_amount_error)
+                amountFrom.value = DEFAULT_AMOUNT
+                amountTo.value = DEFAULT_AMOUNT
+            }
+
         }
     }
 
-    private fun computeWithNewAmount(newAmount: Int) {
+    private fun computeWithNewAmount(newAmount: Long) {
         if (this::selectedCurrency.isInitialized) {
-            val result = (newAmount / selectedCurrency.getRate()).round()
-            amountTo.value = result.toString()
+            try {
+                val result = (newAmount / selectedCurrency.getRate()).round()
+                amountTo.value = formatter.format(result)
+            } catch (e: NumberFormatException) {
+                _snackbarText.value = Event(R.string.snackbar_msg_compute_error)
+                amountTo.value = DEFAULT_AMOUNT
+            }
         }
     }
 
@@ -155,3 +171,4 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
 
 private const val DEFAULT_AMOUNT = "N/A"
+private const val FORMAT_PATTERN = "#,###,###.##"

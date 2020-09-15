@@ -40,6 +40,7 @@
                 android:layout_marginTop="4dp"
                 android:padding="8dp"
                 android:textSize="20sp"
+                android:maxLength="20"
                 android:text="@={viewModel.amount}"
                 android:inputType="number"
                 android:imeOptions="actionDone"
