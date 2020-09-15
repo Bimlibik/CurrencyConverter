@@ -9,4 +9,5 @@
     <string name="snackbar_msg_currency_is_empty">The selected currency has no rate information.
         Try updating the list of currencies.</string>
     <string name="snackbar_msg_loading_error">Error while loading currencies</string>
+    <string name="before_the_update">before the update</string>
 </resources>

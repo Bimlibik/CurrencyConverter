@@ -59,6 +59,9 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     val timeUntilUpdate: LiveData<String> = _timeUntilUpdate.map {
         DateUtils.formatElapsedTime(it)
     }
+    val progress: LiveData<Int> = _timeUntilUpdate.map {
+        it.toInt()
+    }
 
     private val _collapseLabel = MutableLiveData(R.string.collapse)
     val collapseLabel: LiveData<Int> = _collapseLabel

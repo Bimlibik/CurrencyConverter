@@ -2,6 +2,7 @@ package com.foxy.currencyconverter.ui
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.foxy.currencyconverter.R
@@ -10,6 +11,7 @@ import com.foxy.currencyconverter.ui.adapters.CurrenciesAdapter
 import com.foxy.currencyconverter.util.getViewModelFactory
 import com.foxy.currencyconverter.util.setupSnackbar
 import com.foxy.currencyconverter.view_models.CurrenciesViewModel
+import kotlinx.android.synthetic.main.fragment_currency_list.*
 
 class CurrencyListFragment : Fragment() {
 
@@ -48,6 +50,7 @@ class CurrencyListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+        setupToolbar()
         setupAdapter()
         setupSnackbar()
     }
@@ -61,6 +64,12 @@ class CurrencyListFragment : Fragment() {
         if (viewModel != null) {
             val currenciesAdapter = CurrenciesAdapter(viewModel)
             viewDataBinding.recycler.adapter = currenciesAdapter
+        }
+    }
+
+    private fun setupToolbar() {
+        if (activity is AppCompatActivity) {
+            (activity as AppCompatActivity).setSupportActionBar(toolbar)
         }
     }
 }

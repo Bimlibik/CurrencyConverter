@@ -7,7 +7,7 @@ import android.os.CountDownTimer
  */
 class EventCountDown(val listener: TimerListener) {
 
-    private var millisInFuture: Long = 10000L
+    private var millisInFuture: Long = 600000L
     private val countDownInterval: Long = 1000L
     private var millisRemaining: Long = 0L
 

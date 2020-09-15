@@ -5,6 +5,5 @@
 
     <fragment
         android:id="@+id/currency_list_fragment"
-        android:name="com.foxy.currencyconverter.ui.CurrencyListFragment"
-        android:label="Currency Converter" />
+        android:name="com.foxy.currencyconverter.ui.CurrencyListFragment" />
 </navigation>
