@@ -1,8 +1,11 @@
 package com.foxy.currencyconverter.view_models
 
+import android.text.format.DateUtils
 import androidx.lifecycle.*
 import com.foxy.currencyconverter.Event
+import com.foxy.currencyconverter.EventCountDown
 import com.foxy.currencyconverter.R
+import com.foxy.currencyconverter.TimerListener
 import com.foxy.currencyconverter.data.Result
 import com.foxy.currencyconverter.data.Result.Success
 import com.foxy.currencyconverter.data.model.Currency
@@ -13,6 +16,8 @@ import kotlinx.coroutines.launch
 class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewModel() {
 
     private lateinit var selectedCurrency: Currency
+
+    private lateinit var timer: EventCountDown
 
     // Two-way databinding
     val amount = MutableLiveData<String>()
@@ -50,6 +55,11 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     private val _collapseIconRes = MutableLiveData(R.drawable.ic_collapse)
     val collapseIconRes: LiveData<Int> = _collapseIconRes
 
+    private val _timeUntilUpdate = MutableLiveData<Long>()
+    val timeUntilUpdate: LiveData<String> = _timeUntilUpdate.map {
+        DateUtils.formatElapsedTime(it)
+    }
+
     private val _collapseLabel = MutableLiveData(R.string.collapse)
     val collapseLabel: LiveData<Int> = _collapseLabel
 
@@ -59,6 +69,7 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
     init {
         loadCurrencies(false)
+        createTimer()
         amount.observeForever(amountObserver)
     }
 
@@ -106,6 +117,19 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
             _collapseIconRes.value = R.drawable.ic_collapse
             _collapseLabel.value = R.string.collapse
         }
+    }
+
+    private fun createTimer() {
+        timer = EventCountDown(object : TimerListener {
+            override fun onTick(time: Long) {
+                _timeUntilUpdate.value = time
+            }
+
+            override fun onFinish() {
+                refresh()
+            }
+        })
+        timer.start()
     }
 
     private fun loadCurrencies(forceUpdate: Boolean) {
