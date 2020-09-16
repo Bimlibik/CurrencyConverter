@@ -30,20 +30,8 @@ class CurrenciesLocalDataSource(
         }
     }
 
-    override suspend fun refreshCurrencies() {
-
-    }
-
-    override suspend fun saveCurrency(currency: Currency) = withContext(ioDispatcher) {
-        currenciesDao.insertCurrency(currency)
-    }
-
     override suspend fun saveCurrencies(currencies: List<Currency>) = withContext(ioDispatcher) {
         currenciesDao.insertCurrencies(currencies)
-    }
-
-    override suspend fun updateCurrencies(currencies: List<Currency>) = withContext(ioDispatcher) {
-        currenciesDao.updateCurrencies(currencies)
     }
 
     override suspend fun deleteCurrencies() = withContext(ioDispatcher) {

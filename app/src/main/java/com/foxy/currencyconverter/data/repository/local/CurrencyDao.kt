@@ -10,12 +10,6 @@ interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCurrencies(currencies: List<Currency>)
 
-    @Insert
-    fun insertCurrency(currency: Currency)
-
-    @Update(onConflict = OnConflictStrategy.IGNORE)
-    fun updateCurrencies(currencies: List<Currency>)
-
     @Query("DELETE FROM currencies")
     fun deleteCurrencies()
 

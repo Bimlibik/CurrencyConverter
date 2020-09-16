@@ -26,19 +26,7 @@ class CurrenciesRemoteDataSource(
         }
     }
 
-    override suspend fun refreshCurrencies() {
-
-    }
-
-    override suspend fun saveCurrency(currency: Currency) {
-        TODO("Save currency to remote data source")
-    }
-
     override suspend fun saveCurrencies(currencies: List<Currency>) {
-
-    }
-
-    override suspend fun updateCurrencies(currencies: List<Currency>) {
 
     }
 
