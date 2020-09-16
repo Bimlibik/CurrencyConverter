@@ -1,16 +1,26 @@
 <resources>
-    <string name="app_name">CurrencyConverter</string>
+    <string name="app_name">Currency Converter</string>
 
-    <string name="collapse">Collapse converter</string>
-    <string name="expand">Expand converter</string>
-    <string name="tv_empty_info">Currencies not found. Try to refresh.</string>
+    <string name="tv_amount">Количество</string>
+    <string name="tv_from_currency">RUB</string>
+    <string name="collapse">Свернуть</string>
+    <string name="expand">Развернуть</string>
+    <string name="tv_empty_info">Список валют пуст. Попробуйте обновить.</string>
+    <string name="before_the_update">до обновления списка</string>
+    <string name="tv_from_empty">введите количество</string>
+    <string name="tv_to_empty">выберите валюту</string>
+    <string name="tv_to_amount_empty">0.0</string>
+
 
     <string name="snackbar_action_ok">OK</string>
-    <string name="snackbar_msg_currency_is_empty">The selected currency has no rate information.
-        Try updating the list of currencies.</string>
-    <string name="snackbar_msg_loading_error">Error while loading currencies</string>
-    <string name="snackbar_msg_compute_error">Error while compute amount</string>
-    <string name="snackbar_msg_amount_error">Error: amount entered is too large</string>
+    <string name="snackbar_msg_currency_is_empty">У выбранной валюты не найдена ставка.
+        Попробуйте обновить список валют.</string>
+    <string name="snackbar_msg_error_loading_from_network">Список валют не обновлён.
+        Проверьте интернет-соединение.</string>
+    <string name="snackbar_msg_error_loading_from_db">Список валют не найден.
+        Проверьте интернет-соединение.</string>
+    <string name="snackbar_msg_compute_error">Ошибка при расчёте: уменьшите введённое количество.</string>
+    <string name="snackbar_msg_amount_error">Ошибка! Введённое количество слишком велико.</string>
     <string name="snackbar_msg_loading_success">Данные успешно обновлены</string>
-    <string name="before_the_update">before the update</string>
+
 </resources>

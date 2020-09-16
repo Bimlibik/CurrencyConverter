@@ -29,13 +29,10 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
         if (newAmount != null) onAmountChanged(newAmount)
     }
 
-    // Two-way databinding
-    val amountFrom = MutableLiveData(DEFAULT_AMOUNT)
+    val amountFrom = MutableLiveData<String>()
 
-    // Two-way databinding
-    val amountTo = MutableLiveData(DEFAULT_AMOUNT)
+    val amountTo = MutableLiveData<String>()
 
-    // Two-way databinding
     val currencyCode = MutableLiveData<String>(null)
 
     private val _forceUpdate = MutableLiveData(false)
@@ -48,7 +45,7 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
                 }
 
                 override fun error() {
-                    _snackbarText.value = Event(R.string.snackbar_msg_loading_error)
+                    _snackbarText.value = Event(R.string.snackbar_msg_error_loading_from_network)
                 }
 
             })
@@ -109,17 +106,12 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     }
 
     private fun onAmountChanged(newAmount: String) {
-        if (newAmount.isEmpty()) {
-            amountFrom.value = DEFAULT_AMOUNT
-            amountTo.value = DEFAULT_AMOUNT
-        } else {
+        if (newAmount.isNotEmpty()) {
             try {
                 amountFrom.value = formatter.format(newAmount.toLong())
                 computeWithNewAmount(newAmount.toLong())
             } catch (e: NumberFormatException) {
                 _snackbarText.value = Event(R.string.snackbar_msg_amount_error)
-                amountFrom.value = DEFAULT_AMOUNT
-                amountTo.value = DEFAULT_AMOUNT
             }
 
         }
@@ -132,7 +124,6 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
                 amountTo.value = formatter.format(result)
             } catch (e: NumberFormatException) {
                 _snackbarText.value = Event(R.string.snackbar_msg_compute_error)
-                amountTo.value = DEFAULT_AMOUNT
             }
         }
     }
@@ -165,19 +156,17 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     }
 
     private fun computeResult(currenciesResult: Result<List<Currency>>): LiveData<List<Currency>> {
-
         val result = MutableLiveData<List<Currency>>()
 
         if (currenciesResult is Success) {
             result.value = currenciesResult.data
         } else {
             result.value = emptyList()
-            _snackbarText.value = Event(R.string.snackbar_msg_loading_error)
+            _snackbarText.value = Event(R.string.snackbar_msg_error_loading_from_db)
         }
         return result
     }
 }
 
 
-private const val DEFAULT_AMOUNT = "N/A"
 private const val FORMAT_PATTERN = "#,###,###.##"
