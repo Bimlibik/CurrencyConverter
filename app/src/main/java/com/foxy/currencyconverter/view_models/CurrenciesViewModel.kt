@@ -10,9 +10,9 @@ import com.foxy.currencyconverter.data.Result
 import com.foxy.currencyconverter.data.Result.Success
 import com.foxy.currencyconverter.data.model.Currency
 import com.foxy.currencyconverter.data.repository.ICurrenciesRepository
+import com.foxy.currencyconverter.data.repository.ICurrenciesRepository.LoadCurrenciesCallback
 import com.foxy.currencyconverter.util.round
 import kotlinx.coroutines.launch
-import java.lang.NumberFormatException
 import java.text.DecimalFormat
 
 class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewModel() {
@@ -42,7 +42,16 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
     private val _currencies: LiveData<List<Currency>> = _forceUpdate.switchMap { forceUpdate ->
         viewModelScope.launch {
-            repository.refreshCurrencies(forceUpdate)
+            repository.refreshCurrencies(forceUpdate, object : LoadCurrenciesCallback {
+                override fun success() {
+                    _snackbarText.value = Event(R.string.snackbar_msg_loading_success)
+                }
+
+                override fun error() {
+                    _snackbarText.value = Event(R.string.snackbar_msg_loading_error)
+                }
+
+            })
         }
         repository.observeCurrencies().distinctUntilChanged().switchMap { computeResult(it) }
     }

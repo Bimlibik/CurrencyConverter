@@ -6,6 +6,7 @@ import com.foxy.currencyconverter.data.Result
 import com.foxy.currencyconverter.data.Result.Error
 import com.foxy.currencyconverter.data.Result.Success
 import com.foxy.currencyconverter.data.model.Currency
+import com.foxy.currencyconverter.data.repository.ICurrenciesRepository.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -21,10 +22,10 @@ class CurrenciesRepository(
         return currenciesLocalDataSource.observeCurrencies()
     }
 
-    override suspend fun getCurrencies(forceUpdate: Boolean): Result<List<Currency>> {
+    override suspend fun getCurrencies(forceUpdate: Boolean, callback: LoadCurrenciesCallback): Result<List<Currency>> {
         if (forceUpdate) {
             try {
-                updateCurrenciesFromNetwork()
+                updateCurrenciesFromNetwork(callback)
             } catch (e: Exception) {
                 return Error(e)
             }
@@ -32,12 +33,12 @@ class CurrenciesRepository(
         return currenciesLocalDataSource.getCurrencies()
     }
 
-    override suspend fun refreshCurrencies(forceUpdate: Boolean) {
+    override suspend fun refreshCurrencies(forceUpdate: Boolean, callback: LoadCurrenciesCallback) {
         if (forceUpdate) {
-            updateCurrenciesFromNetwork()
+            updateCurrenciesFromNetwork(callback)
         } else {
             if (currenciesLocalDataSource.isEmpty()) {
-                updateCurrenciesFromNetwork()
+                updateCurrenciesFromNetwork(callback)
             }
         }
     }
@@ -54,12 +55,15 @@ class CurrenciesRepository(
         }
     }
 
-    private suspend fun updateCurrenciesFromNetwork() {
+    private suspend fun updateCurrenciesFromNetwork(callback: LoadCurrenciesCallback) {
         val remoteCurrencies = currenciesRemoteDataSource.getCurrencies()
 
         if (remoteCurrencies is Success) {
             currenciesLocalDataSource.deleteCurrencies()
             currenciesLocalDataSource.saveCurrencies(remoteCurrencies.data)
+            callback.success()
+        } else {
+            callback.error()
         }
     }
 }
