@@ -28,7 +28,7 @@
                 android:layout_width="50dp"
                 android:layout_height="40dp">
 
-                <View
+                <ImageView
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
@@ -52,7 +52,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center"
                 android:text="@{currency.name}"
-                android:textColor="@{currency.selected ? @color/colorAccent : @color/colorPrimaryDark}"/>
+                android:textColor="@{currency.selected ? @color/colorAccent : @color/colorText}"/>
         </LinearLayout>
 
     </LinearLayout>
