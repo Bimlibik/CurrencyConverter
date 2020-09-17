@@ -90,19 +90,29 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
         loadCurrencies(true)
     }
 
-    fun saveSelectedCurrency(currency: Currency) {
+    fun setSelectedCurrency(currency: Currency) {
         if (currency.isEmpty) {
             _snackbarText.value = Event(R.string.snackbar_msg_currency_is_empty)
             return
         }
-        selectedCurrency = currency
-        currencyCode.value = currency.charCode
-        amount.value = amount.value
+        updateSelected(currency)
     }
 
     fun showHideConverterPanel(isShown: Boolean) {
         _isCollapse.value = isShown
         changeCollapseInfo(isShown)
+    }
+
+    private fun updateSelected(currency: Currency) {
+        viewModelScope.launch {
+            if (this@CurrenciesViewModel::selectedCurrency.isInitialized) {
+                repository.updateSelected(selectedCurrency.id, false)
+            }
+            repository.updateSelected(currency.id, true)
+        }
+        selectedCurrency = currency
+        currencyCode.value = currency.charCode
+        amount.value = amount.value
     }
 
     private fun onAmountChanged(newAmount: String) {
@@ -159,6 +169,13 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
         val result = MutableLiveData<List<Currency>>()
 
         if (currenciesResult is Success) {
+            for (currency in currenciesResult.data) {
+                if (currency.isSelected) {
+                    selectedCurrency = currency
+                    currencyCode.value = currency.charCode
+                    break
+                }
+            }
             result.value = currenciesResult.data
         } else {
             result.value = emptyList()

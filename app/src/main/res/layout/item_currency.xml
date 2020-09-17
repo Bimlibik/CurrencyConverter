@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="8dp"
-            android:onClick="@{() -> viewModel.saveSelectedCurrency(currency)}">
+            android:onClick="@{() -> viewModel.setSelectedCurrency(currency)}">
 
             <RelativeLayout
                 android:layout_width="50dp"
@@ -51,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center"
-                android:text="@{currency.name}" />
+                android:text="@{currency.name}"
+                android:textColor="@{currency.selected ? @color/colorAccent : @color/colorPrimaryDark}"/>
         </LinearLayout>
 
     </LinearLayout>

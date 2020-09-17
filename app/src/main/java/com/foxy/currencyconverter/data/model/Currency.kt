@@ -19,7 +19,9 @@ data class Currency(
     val nominal: Int,
 
     @SerializedName("Value")
-    val value: String
+    val value: String,
+
+    val isSelected: Boolean
 ) {
 
     val isEmpty get() =

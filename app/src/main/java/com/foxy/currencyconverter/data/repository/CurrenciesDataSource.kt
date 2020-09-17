@@ -16,4 +16,6 @@ interface CurrenciesDataSource {
 
     suspend fun isEmpty(): Boolean
 
+    suspend fun updateSelected(currencyId: String, isSelected: Boolean)
+
 }

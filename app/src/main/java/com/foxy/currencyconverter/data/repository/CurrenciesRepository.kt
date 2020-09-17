@@ -6,6 +6,8 @@ import com.foxy.currencyconverter.data.Result
 import com.foxy.currencyconverter.data.Result.Success
 import com.foxy.currencyconverter.data.model.Currency
 import com.foxy.currencyconverter.data.repository.ICurrenciesRepository.LoadCurrenciesCallback
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class CurrenciesRepository(
     private val currenciesLocalDataSource: CurrenciesDataSource,
@@ -26,11 +28,18 @@ class CurrenciesRepository(
         }
     }
 
+    override suspend fun updateSelected(currencyId: String, isSelected: Boolean) {
+        coroutineScope {
+            launch {
+                currenciesLocalDataSource.updateSelected(currencyId, isSelected)
+            }
+        }
+    }
+
     private suspend fun updateCurrenciesFromNetwork(callback: LoadCurrenciesCallback) {
         val remoteCurrencies = currenciesRemoteDataSource.getCurrencies()
 
         if (remoteCurrencies is Success) {
-            currenciesLocalDataSource.deleteCurrencies()
             currenciesLocalDataSource.saveCurrencies(remoteCurrencies.data)
             callback.success()
         } else {

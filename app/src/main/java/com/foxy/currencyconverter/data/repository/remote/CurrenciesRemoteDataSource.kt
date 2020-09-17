@@ -38,6 +38,10 @@ class CurrenciesRemoteDataSource(
         TODO("Check if remote data source is empty")
     }
 
+    override suspend fun updateSelected(currencyId: String, isSelected: Boolean) {
+        TODO("TODO")
+    }
+
     private suspend fun loadCurrenciesFromNetwork(): List<Currency> {
         val apiClient = ApiClient.client.create(CurrencyApiInterface::class.java)
         return apiClient.getCurrencies().currencies.values.toList()
