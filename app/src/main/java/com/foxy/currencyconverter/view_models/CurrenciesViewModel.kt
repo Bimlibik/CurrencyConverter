@@ -122,6 +122,8 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
                 computeWithNewAmount(newAmount.toLong())
             } catch (e: NumberFormatException) {
                 _snackbarText.value = Event(R.string.snackbar_msg_amount_error)
+                amountFrom.value = null
+                amountTo.value = null
             }
 
         }
@@ -134,6 +136,8 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
                 amountTo.value = formatter.format(result)
             } catch (e: NumberFormatException) {
                 _snackbarText.value = Event(R.string.snackbar_msg_compute_error)
+                amountFrom.value = null
+                amountTo.value = null
             }
         }
     }
