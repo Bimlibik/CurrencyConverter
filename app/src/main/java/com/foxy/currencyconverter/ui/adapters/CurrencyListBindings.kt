@@ -12,6 +12,13 @@ import com.foxy.currencyconverter.data.model.Currency
 fun setItems(recyclerView: RecyclerView, items: List<Currency>?) {
     items?.let {
         (recyclerView.adapter as CurrenciesAdapter).submitList(items)
+
+        for ((i, item) in items.withIndex()) {
+            if (item.isSelected) {
+                recyclerView.scrollToPosition(i)
+                break
+            }
+        }
     }
 }
 

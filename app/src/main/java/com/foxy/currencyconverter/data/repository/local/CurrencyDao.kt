@@ -10,6 +10,18 @@ interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCurrencies(currencies: List<Currency>)
 
+    @Query("UPDATE currencies SET nominal = :nominal, value = :value WHERE id = :id")
+    fun updateCurrency(id: String, nominal: Int, value: String)
+
+    @Transaction
+    fun upsertCurrencies(currencies: List<Currency>) {
+        insertCurrencies(currencies)
+
+        for (currency in currencies) {
+            updateCurrency(currency.id, currency.nominal, currency.value)
+        }
+    }
+
     @Query("DELETE FROM currencies")
     fun deleteCurrencies()
 
@@ -21,4 +33,7 @@ interface CurrencyDao {
 
     @Query("SELECT * FROM currencies LIMIT 1")
     fun getAnyCurrency(): Currency?
+
+    @Query("UPDATE currencies SET isSelected = :isSelected WHERE id = :currencyId")
+    fun updateSelected(currencyId: String, isSelected: Boolean)
 }

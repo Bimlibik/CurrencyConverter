@@ -84,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_gravity="center_vertical"
-                android:src="@{ContextCompat.getDrawable(context, viewModel.collapseIconRes)}" />
+                android:src="@{ContextCompat.getDrawable(context, viewModel.collapseIconRes)}"
+                android:contentDescription="@string/content_description_collapse_expand"/>
 
             <TextView
                 android:id="@+id/tv_expand_collapse"

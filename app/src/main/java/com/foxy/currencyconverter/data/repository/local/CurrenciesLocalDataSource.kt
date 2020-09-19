@@ -31,7 +31,7 @@ class CurrenciesLocalDataSource(
     }
 
     override suspend fun saveCurrencies(currencies: List<Currency>) = withContext(ioDispatcher) {
-        currenciesDao.insertCurrencies(currencies)
+        currenciesDao.upsertCurrencies(currencies)
     }
 
     override suspend fun deleteCurrencies() = withContext(ioDispatcher) {
@@ -40,5 +40,9 @@ class CurrenciesLocalDataSource(
 
     override suspend fun isEmpty(): Boolean = withContext(ioDispatcher) {
         return@withContext currenciesDao.getAnyCurrency() == null
+    }
+
+    override suspend fun updateSelected(currencyId: String, isSelected: Boolean) = withContext(ioDispatcher) {
+        currenciesDao.updateSelected(currencyId, isSelected)
     }
 }
