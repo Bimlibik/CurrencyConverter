@@ -28,7 +28,7 @@ class CurrenciesAdapter(
     }
 
 
-    class CurrencyViewHolder(val binding: ItemCurrencyBinding) :
+    class CurrencyViewHolder(private val binding: ItemCurrencyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(viewModel: CurrenciesViewModel, currency: Currency) {
