@@ -49,10 +49,10 @@ class CurrencyListFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        viewDataBinding.toolbar.inflateMenu(R.menu.menu_currencies)
-        viewDataBinding.toolbar.menu.findItem(R.id.menu_refresh).setOnMenuItemClickListener {
-            viewModel.refresh()
-            true
-        }
+//        viewDataBinding.toolbar.inflateMenu(R.menu.menu_currencies)
+//        viewDataBinding.toolbar.menu.findItem(R.id.menu_refresh).setOnMenuItemClickListener {
+//            viewModel.refresh()
+//            true
+//        }
     }
 }

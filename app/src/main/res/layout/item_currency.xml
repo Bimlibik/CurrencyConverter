@@ -15,7 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@{currency.selected ? @color/colorPrimaryLight : @color/colorWhite}">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +34,7 @@
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/field_bg"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTint="@color/colorAccent"
                     android:contentDescription="@string/content_description_char_code"/>
 
                 <TextView
@@ -43,7 +44,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="8dp"
                     android:text="@{currency.charCode}"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorText" />
             </RelativeLayout>
 
             <TextView
@@ -53,7 +54,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center"
                 android:text="@{currency.name}"
-                android:textColor="@{currency.selected ? @color/colorAccent : @color/colorText}"/>
+                android:textColor="@color/colorText"/>
         </LinearLayout>
 
     </LinearLayout>

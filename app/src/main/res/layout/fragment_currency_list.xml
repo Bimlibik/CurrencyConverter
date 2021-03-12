@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
-                android:background="@color/colorPrimary">
+                android:background="@color/colorPrimaryDark">
 
                 <RelativeLayout
                     android:layout_width="45dp"
@@ -61,8 +61,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/before_the_update"
                     android:textColor="@color/colorWhite" />
-
-
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -71,30 +69,30 @@
             layout="@layout/layout_converter"
             bind:viewModel="@{viewModel}" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/colorConverterBg"
-            android:onClick="@{() -> viewModel.showHideConverterPanel(!viewModel.isCollapse)}">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:background="@color/colorPrimary"-->
+<!--            android:onClick="@{() -> viewModel.showHideConverterPanel(!viewModel.isCollapse)}">-->
 
-            <ImageView
-                android:id="@+id/img_expand_collapse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_gravity="center_vertical"
-                android:src="@{ContextCompat.getDrawable(context, viewModel.collapseIconRes)}"
-                android:contentDescription="@string/content_description_collapse_expand"/>
+<!--            <ImageView-->
+<!--                android:id="@+id/img_expand_collapse"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="8dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:src="@{ContextCompat.getDrawable(context, viewModel.collapseIconRes)}"-->
+<!--                android:contentDescription="@string/content_description_collapse_expand" />-->
 
-            <TextView
-                android:id="@+id/tv_expand_collapse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@{context.getString(viewModel.collapseLabel)}"
-                android:textColor="@color/colorWhite" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/tv_expand_collapse"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="@{context.getString(viewModel.collapseLabel)}"-->
+<!--                android:textColor="@color/colorWhite" />-->
+<!--        </LinearLayout>-->
 
         <FrameLayout
             android:layout_width="match_parent"
