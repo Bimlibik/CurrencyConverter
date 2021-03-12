@@ -8,12 +8,7 @@ interface ICurrenciesRepository {
 
     fun observeCurrencies(): LiveData<Result<List<Currency>>>
 
-    suspend fun refreshCurrencies(forceUpdate: Boolean, callback: LoadCurrenciesCallback)
+    suspend fun refreshCurrencies(forceUpdate: Boolean, callback: (isSuccess: Boolean) -> Unit)
 
-    suspend fun updateSelected(currencyIs: String, isSelected: Boolean)
-
-    interface LoadCurrenciesCallback {
-        fun success()
-        fun error()
-    }
+    suspend fun updateSelected(currencyId: String, isSelected: Boolean)
 }

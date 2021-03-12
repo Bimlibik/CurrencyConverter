@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import com.foxy.currencyconverter.data.Result
 import com.foxy.currencyconverter.data.Result.Success
 import com.foxy.currencyconverter.data.model.Currency
-import com.foxy.currencyconverter.data.repository.ICurrenciesRepository.LoadCurrenciesCallback
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
@@ -18,7 +17,7 @@ class CurrenciesRepository(
         return currenciesLocalDataSource.observeCurrencies()
     }
 
-    override suspend fun refreshCurrencies(forceUpdate: Boolean, callback: LoadCurrenciesCallback) {
+    override suspend fun refreshCurrencies(forceUpdate: Boolean, callback: (isSuccess: Boolean) -> Unit) {
         if (forceUpdate) {
             updateCurrenciesFromNetwork(callback)
         } else {
@@ -36,14 +35,14 @@ class CurrenciesRepository(
         }
     }
 
-    private suspend fun updateCurrenciesFromNetwork(callback: LoadCurrenciesCallback) {
+    private suspend fun updateCurrenciesFromNetwork(callback: (isSuccess: Boolean) -> Unit) {
         val remoteCurrencies = currenciesRemoteDataSource.getCurrencies()
 
         if (remoteCurrencies is Success) {
             currenciesLocalDataSource.saveCurrencies(remoteCurrencies.data)
-            callback.success()
+            callback(true)
         } else {
-            callback.error()
+            callback(false)
         }
     }
 }
