@@ -135,7 +135,7 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
         if (this::selectedCurrency.isInitialized) {
             try {
-                val amountToValue = (newAmount.toLong() / selectedCurrency.getRate()).round()
+                val amountToValue = selectedCurrency.convert(newAmount.toLong())
                 result.value = formatter.format(amountToValue)
             } catch (e: NumberFormatException) {
                 _snackbarText.value = Event(R.string.snackbar_msg_compute_error)
