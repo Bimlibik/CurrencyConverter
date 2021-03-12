@@ -6,8 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.foxy.currencyconverter.data.repository.ICurrenciesRepository
-import com.foxy.currencyconverter.view_models.CurrenciesViewModel
-import java.lang.IllegalArgumentException
+import com.foxy.currencyconverter.ui.currencies.CurrenciesViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(

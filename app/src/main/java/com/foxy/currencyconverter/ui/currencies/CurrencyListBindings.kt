@@ -1,4 +1,4 @@
-package com.foxy.currencyconverter.ui.adapters
+package com.foxy.currencyconverter.ui.currencies
 
 import android.view.View
 import android.view.ViewGroup

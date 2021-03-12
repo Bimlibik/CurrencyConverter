@@ -1,4 +1,4 @@
-package com.foxy.currencyconverter.ui
+package com.foxy.currencyconverter.ui.currencies
 
 import android.os.Bundle
 import android.view.*
@@ -7,10 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.foxy.currencyconverter.R
 import com.foxy.currencyconverter.databinding.FragmentCurrencyListBinding
-import com.foxy.currencyconverter.ui.adapters.CurrenciesAdapter
 import com.foxy.currencyconverter.util.getViewModelFactory
 import com.foxy.currencyconverter.util.setupSnackbar
-import com.foxy.currencyconverter.view_models.CurrenciesViewModel
 import kotlinx.android.synthetic.main.fragment_currency_list.*
 
 class CurrencyListFragment : Fragment() {

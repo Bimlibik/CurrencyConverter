@@ -1,4 +1,4 @@
-package com.foxy.currencyconverter.ui
+package com.foxy.currencyconverter.ui.currencies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

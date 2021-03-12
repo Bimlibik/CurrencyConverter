@@ -1,4 +1,4 @@
-package com.foxy.currencyconverter.view_models
+package com.foxy.currencyconverter.ui.currencies
 
 import android.text.format.DateUtils
 import androidx.lifecycle.*

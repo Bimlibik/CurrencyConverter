@@ -1,4 +1,4 @@
-package com.foxy.currencyconverter.ui.adapters
+package com.foxy.currencyconverter.ui.currencies
 
 
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.foxy.currencyconverter.data.model.Currency
 import com.foxy.currencyconverter.databinding.ItemCurrencyBinding
-import com.foxy.currencyconverter.ui.adapters.CurrenciesAdapter.*
-import com.foxy.currencyconverter.view_models.CurrenciesViewModel
+import com.foxy.currencyconverter.ui.currencies.CurrenciesAdapter.*
 
 class CurrenciesAdapter(
-    private val viewModel: CurrenciesViewModel) :
+    private val viewModel: CurrenciesViewModel
+) :
     ListAdapter<Currency, CurrencyViewHolder>(CurrenciesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
