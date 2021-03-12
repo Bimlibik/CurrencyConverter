@@ -22,15 +22,17 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
     private val formatter = DecimalFormat(FORMAT_PATTERN)
 
-    // Two-way databinding
     val amount = MutableLiveData<String>()
-    private val amountObserver = Observer<String> { newAmount ->
-        if (newAmount != null) onAmountChanged(newAmount)
+
+    private val _amountFrom: LiveData<String> = amount.switchMap { newAmount ->
+        computeAmountFrom(newAmount)
     }
+    val amountFrom: LiveData<String> = _amountFrom
 
-    val amountFrom = MutableLiveData<String>()
-
-    val amountTo = MutableLiveData<String>()
+    private val _amountTo: LiveData<String> = amount.switchMap { amount ->
+        computeWithNewAmount(amount)
+    }
+    val amountTo: LiveData<String> = _amountTo
 
     val currencyCode = MutableLiveData<String>(null)
 
@@ -58,8 +60,15 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     private val _isCollapse = MutableLiveData(false)
     val isCollapse: LiveData<Boolean> = _isCollapse
 
-    private val _collapseIconRes = MutableLiveData(R.drawable.ic_collapse)
+    private val _collapseIconRes: LiveData<Int> = _isCollapse.map { isCollapse ->
+        if (isCollapse) R.drawable.ic_expand else R.drawable.ic_collapse
+    }
     val collapseIconRes: LiveData<Int> = _collapseIconRes
+
+    private val _collapseLabel: LiveData<Int> = _isCollapse.map { isCollapse ->
+        if (isCollapse) R.string.expand else R.string.collapse
+    }
+    val collapseLabel: LiveData<Int> = _collapseLabel
 
     private val _timeUntilUpdate = MutableLiveData<Long>()
     val timeUntilUpdate: LiveData<String> = _timeUntilUpdate.map {
@@ -69,9 +78,6 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
         it.toInt()
     }
 
-    private val _collapseLabel = MutableLiveData(R.string.collapse)
-    val collapseLabel: LiveData<Int> = _collapseLabel
-
     private val _snackbarText = MutableLiveData<Event<Int>>()
     val snackbarText: LiveData<Event<Int>> = _snackbarText
 
@@ -79,7 +85,6 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
     init {
         loadCurrencies(false)
         createTimer()
-        amount.observeForever(amountObserver)
     }
 
     fun refresh() {
@@ -96,7 +101,6 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
     fun showHideConverterPanel(isShown: Boolean) {
         _isCollapse.value = isShown
-        changeCollapseInfo(isShown)
     }
 
     private fun updateSelected(currency: Currency) {
@@ -111,41 +115,34 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
         amount.value = amount.value
     }
 
-    private fun onAmountChanged(newAmount: String) {
-        if (newAmount.isNotEmpty()) {
-            try {
-                amountFrom.value = formatter.format(newAmount.toLong())
-                computeWithNewAmount(newAmount.toLong())
-            } catch (e: NumberFormatException) {
-                _snackbarText.value = Event(R.string.snackbar_msg_amount_error)
-                amountFrom.value = null
-                amountTo.value = null
-            }
+    private fun computeAmountFrom(newAmount: String): LiveData<String> {
+        val result = MutableLiveData<String>()
 
+        if (newAmount.isEmpty()) return result
+
+        try {
+            result.value = formatter.format(newAmount.toLong())
+        } catch (e: NumberFormatException) {
+            result.value = null
         }
+        return result
     }
 
-    private fun computeWithNewAmount(newAmount: Long) {
+    private fun computeWithNewAmount(newAmount: String): LiveData<String> {
+        val result = MutableLiveData<String>()
+
+        if (newAmount.isEmpty()) return result
+
         if (this::selectedCurrency.isInitialized) {
             try {
-                val result = (newAmount / selectedCurrency.getRate()).round()
-                amountTo.value = formatter.format(result)
+                val amountToValue = (newAmount.toLong() / selectedCurrency.getRate()).round()
+                result.value = formatter.format(amountToValue)
             } catch (e: NumberFormatException) {
                 _snackbarText.value = Event(R.string.snackbar_msg_compute_error)
-                amountFrom.value = null
-                amountTo.value = null
+                result.value = null
             }
         }
-    }
-
-    private fun changeCollapseInfo(isCollapse: Boolean) {
-        if (isCollapse) {
-            _collapseIconRes.value = R.drawable.ic_expand
-            _collapseLabel.value = R.string.expand
-        } else {
-            _collapseIconRes.value = R.drawable.ic_collapse
-            _collapseLabel.value = R.string.collapse
-        }
+        return result
     }
 
     private fun createTimer() {
