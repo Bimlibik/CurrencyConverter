@@ -3,8 +3,6 @@
 
     <string name="tv_amount">Количество</string>
     <string name="tv_from_currency">RUB</string>
-    <string name="collapse">Свернуть</string>
-    <string name="expand">Развернуть</string>
     <string name="tv_empty_info">Список валют пуст. Попробуйте обновить.</string>
     <string name="before_the_update">до обновления списка</string>
     <string name="tv_from_empty">введите количество</string>
@@ -20,9 +18,7 @@
     <string name="snackbar_msg_error_loading_from_db">Список валют не найден.
         Проверьте интернет-соединение.</string>
     <string name="snackbar_msg_compute_error">Ошибка при расчёте: уменьшите введённое количество.</string>
-    <string name="snackbar_msg_amount_error">Ошибка! Введённое количество слишком велико.</string>
     <string name="snackbar_msg_loading_success">Данные успешно обновлены</string>
-    <string name="content_description_collapse_expand">Свернуть, развернуть</string>
     <string name="content_description_char_code">Код валюты</string>
     <string name="content_description_equality">Равно</string>
     <string name="menu_refresh">Обновить</string>

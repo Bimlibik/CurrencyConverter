@@ -1,11 +1,9 @@
 package com.foxy.currencyconverter.ui.currencies
 
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionManager
 import com.foxy.currencyconverter.data.model.Currency
 
 @BindingAdapter("app:items")

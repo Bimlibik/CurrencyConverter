@@ -10,7 +10,6 @@ import com.foxy.currencyconverter.data.Result
 import com.foxy.currencyconverter.data.Result.Success
 import com.foxy.currencyconverter.data.model.Currency
 import com.foxy.currencyconverter.data.repository.ICurrenciesRepository
-import com.foxy.currencyconverter.util.round
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
