@@ -57,19 +57,6 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
         it.isEmpty()
     }
 
-    private val _isCollapse = MutableLiveData(false)
-    val isCollapse: LiveData<Boolean> = _isCollapse
-
-    private val _collapseIconRes: LiveData<Int> = _isCollapse.map { isCollapse ->
-        if (isCollapse) R.drawable.ic_expand else R.drawable.ic_collapse
-    }
-    val collapseIconRes: LiveData<Int> = _collapseIconRes
-
-    private val _collapseLabel: LiveData<Int> = _isCollapse.map { isCollapse ->
-        if (isCollapse) R.string.expand else R.string.collapse
-    }
-    val collapseLabel: LiveData<Int> = _collapseLabel
-
     private val _timeUntilUpdate = MutableLiveData<Long>()
     val timeUntilUpdate: LiveData<String> = _timeUntilUpdate.map {
         DateUtils.formatElapsedTime(it)
@@ -89,6 +76,7 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
 
     fun refresh() {
         loadCurrencies(true)
+        timer.start()
     }
 
     fun setSelectedCurrency(currency: Currency) {
@@ -97,10 +85,6 @@ class CurrenciesViewModel(private val repository: ICurrenciesRepository) : ViewM
             return
         }
         updateSelected(currency)
-    }
-
-    fun showHideConverterPanel(isShown: Boolean) {
-        _isCollapse.value = isShown
     }
 
     private fun updateSelected(currency: Currency) {

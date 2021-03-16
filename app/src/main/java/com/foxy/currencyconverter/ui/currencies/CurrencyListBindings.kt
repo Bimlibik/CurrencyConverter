@@ -22,12 +22,6 @@ fun setItems(recyclerView: RecyclerView, items: List<Currency>?) {
     }
 }
 
-@BindingAdapter("app:animatedVisibility")
-fun setAnimatedVisibility(view: View, isCollapse: Boolean) {
-    TransitionManager.beginDelayedTransition(view.rootView as ViewGroup)
-    view.visibility = if (isCollapse) View.GONE else View.VISIBLE
-}
-
 @BindingAdapter("app:textVisibility")
 fun charCodeVisibility(view: TextView, isEmpty: Boolean) {
     view.visibility = if (isEmpty) View.GONE else View.VISIBLE

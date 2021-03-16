@@ -9,6 +9,7 @@ import com.foxy.currencyconverter.databinding.FragmentCurrencyListBinding
 import com.foxy.currencyconverter.util.getViewModelFactory
 import com.foxy.currencyconverter.util.setupSnackbar
 import kotlinx.android.synthetic.main.fragment_currency_list.*
+import kotlinx.android.synthetic.main.layout_converter.view.*
 
 class CurrencyListFragment : Fragment() {
 
@@ -49,10 +50,11 @@ class CurrencyListFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-//        viewDataBinding.toolbar.inflateMenu(R.menu.menu_currencies)
-//        viewDataBinding.toolbar.menu.findItem(R.id.menu_refresh).setOnMenuItemClickListener {
-//            viewModel.refresh()
-//            true
-//        }
+        viewDataBinding.toolbar.inflateMenu(R.menu.menu_currencies)
+        viewDataBinding.toolbar.menu.findItem(R.id.menu_refresh).setOnMenuItemClickListener {
+            viewModel.refresh()
+            true
+        }
     }
+
 }

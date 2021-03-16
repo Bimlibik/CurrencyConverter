@@ -62,37 +62,12 @@
                     android:text="@string/before_the_update"
                     android:textColor="@color/colorWhite" />
             </androidx.appcompat.widget.Toolbar>
+
+            <include
+                android:id="@+id/layout_converter"
+                layout="@layout/layout_converter"
+                bind:viewModel="@{viewModel}" />
         </com.google.android.material.appbar.AppBarLayout>
-
-        <include
-            android:id="@+id/layout_converter"
-            layout="@layout/layout_converter"
-            bind:viewModel="@{viewModel}" />
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:background="@color/colorPrimary"-->
-<!--            android:onClick="@{() -> viewModel.showHideConverterPanel(!viewModel.isCollapse)}">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/img_expand_collapse"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="8dp"-->
-<!--                android:layout_gravity="center_vertical"-->
-<!--                android:src="@{ContextCompat.getDrawable(context, viewModel.collapseIconRes)}"-->
-<!--                android:contentDescription="@string/content_description_collapse_expand" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_expand_collapse"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_vertical"-->
-<!--                android:text="@{context.getString(viewModel.collapseLabel)}"-->
-<!--                android:textColor="@color/colorWhite" />-->
-<!--        </LinearLayout>-->
 
         <FrameLayout
             android:layout_width="match_parent"
